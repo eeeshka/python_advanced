@@ -45,3 +45,7 @@ class Product:
         if new_quantity < 0:
             raise ValueError("Недостаточно товара на складе")
         self.quantity = new_quantity
+
+    def calculate_shipping(self, distance: int|float) -> int|float:
+        return self.quantity * 10 / distance
+
