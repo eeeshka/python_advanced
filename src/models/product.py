@@ -47,12 +47,8 @@ class Product:
             raise ValueError("Недостаточно товара на складе")
         self.quantity = new_quantity
 
-<<<<<<< HEAD
-    def calculate_shipping(self, distance: int|float) -> int|float:
+    def calculate_shipping(self, distance: int | float) -> int | float:
         return self.quantity * 10 / distance
 
-=======
     def get_category(self) -> str:
         return self.category
->>>>>>> main
-
