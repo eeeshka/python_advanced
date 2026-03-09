@@ -2,12 +2,13 @@ from src.models.exceptions import NegativePriceError, InsufficientStockError
 
 
 class Product:
-    def __init__(self, name, price, quantity):
+    def __init__(self, name, price, quantity, category):
         if price < 0:
             raise NegativePriceError("Цена не может быть отрицательной")
         self.name = name
         self.price = price
         self.quantity = quantity
+        self.category = category
 
     def get_total_price(self):
         """Метод для получения стоимости"""
@@ -45,3 +46,6 @@ class Product:
         if new_quantity < 0:
             raise ValueError("Недостаточно товара на складе")
         self.quantity = new_quantity
+
+    def get_category(self) -> str:
+        return self.category
