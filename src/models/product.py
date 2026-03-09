@@ -36,4 +36,11 @@ class Product:
     def apply_discount(self, discount: int) -> float:
         return self.price * (1 - discount / 100)
 
+    def check_stock(self, req_quantity: int) -> bool:
+        return self.quantity >= req_quantity
 
+    def update_stock(self, amount: int) -> None:
+        new_quantity = self.quantity + amount
+        if new_quantity < 0:
+            raise ValueError("Недостаточно товара на складе")
+        self.quantity = new_quantity
