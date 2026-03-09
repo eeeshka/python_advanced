@@ -10,6 +10,7 @@ class Product:
         self.quantity = quantity
 
     def get_total_price(self):
+        """Метод расчета стоимости итоговой"""
         return self.price * self.quantity
 
     def __str__(self):
