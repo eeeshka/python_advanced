@@ -1,0 +1,29 @@
+*   26847bb Merge pull request #4 from eeeshka/feature/add-shipping
+|\  
+| * 5d700f3 бъединены изменения из main
+| *   79d354e Объединены изменения из main
+| |\  
+| | * f33aa51 Добавлен метод get_category в Product
+| |/  
+|/|   
+| * 3e4316f Добавлен метод calculate_shipping в Product
+|/  
+*   cb6a0b4 Разрешен конфликт в get_total_price
+|\  
+| * 79511aa Изменен метод get_total_price в feature/test-conflict
+* | 8cd2398 Изменен метод get_total_price в main
+|/  
+*   6c3f10f Merge pull request #3 from eeeshka/feature/add-inventory-management
+|\  
+| * 54a0b0c Добавлены методы управления складом в класс Product
+|/  
+*   dbd4f9c Merge pull request #2 from eeeshka/feature/add-email-validation
+|\  
+| * 26b8ede Добавлена валидация email в класс User
+|/  
+*   27a61eb Merge pull request #1 from eeeshka/feature/add-discount-system
+|\  
+| * dba72f3 Добавлена система скидок в класс Product
+|/  
+* 501a518 Удалить .idea из репозитория, добавить в .gitignore
+* 72dc833 Добавлены уроки блока 1: основы Python

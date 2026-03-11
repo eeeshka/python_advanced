@@ -1,0 +1,172 @@
+commit 26847bb89067571a94be3b0be06107d9f975fb05
+Merge: cb6a0b4 5d700f3
+Author: eeeshka <nnbull2602@gmail.com>
+Date:   Mon Mar 9 18:47:07 2026 +0300
+
+    Merge pull request #4 from eeeshka/feature/add-shipping
+    
+    # - Что изменилось: добавлены методы calculate_shipping и get_category
+    # - Как разрешен конфликт: оба метода объединены в классе Product
+
+commit 5d700f38d3abe87e58df52f3c0daab04f36e8655
+Author: Владислав Антонов <nnbull2602@gmail.com>
+Date:   Mon Mar 9 18:41:12 2026 +0300
+
+    бъединены изменения из main
+
+ src/models/product.py | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
+
+commit 79d354ebb23c74c1b4c4da3216ffbab8d06ca36b
+Merge: 3e4316f f33aa51
+Author: Владислав Антонов <nnbull2602@gmail.com>
+Date:   Mon Mar 9 17:39:46 2026 +0300
+
+    Объединены изменения из main
+
+commit f33aa51e3641c0a997409e61fc895e876334f6e9
+Author: Владислав Антонов <nnbull2602@gmail.com>
+Date:   Mon Mar 9 17:32:00 2026 +0300
+
+    Добавлен метод get_category в Product
+
+ src/models/product.py | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+commit 3e4316f78dfb50a7fd0e2a68fbe5780cb64bac0a
+Author: Владислав Антонов <nnbull2602@gmail.com>
+Date:   Mon Mar 9 17:27:59 2026 +0300
+
+    Добавлен метод calculate_shipping в Product
+
+ src/models/product.py | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+commit cb6a0b40935bfc12f7f7b0024907ef261c8250f5
+Merge: 8cd2398 79511aa
+Author: Владислав Антонов <nnbull2602@gmail.com>
+Date:   Mon Mar 9 16:18:48 2026 +0300
+
+    Разрешен конфликт в get_total_price
+
+commit 8cd2398f17532c6046d41a34b0f936661f224b10
+Author: Владислав Антонов <nnbull2602@gmail.com>
+Date:   Mon Mar 9 16:07:17 2026 +0300
+
+    Изменен метод get_total_price в main
+
+ src/models/product.py | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit 79511aa2f3eb199d1d3d23af0af92a1e601a1958
+Author: Владислав Антонов <nnbull2602@gmail.com>
+Date:   Mon Mar 9 16:05:59 2026 +0300
+
+    Изменен метод get_total_price в feature/test-conflict
+
+ src/models/product.py | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit 6c3f10fce03649a7ceb3495a7dd23c695cb2101e
+Merge: dbd4f9c 54a0b0c
+Author: eeeshka <nnbull2602@gmail.com>
+Date:   Mon Mar 9 13:59:41 2026 +0300
+
+    Merge pull request #3 from eeeshka/feature/add-inventory-management
+    
+    Добавлены методы управления складом в класс Product
+
+commit 54a0b0cef3cebd3711078cad95b9d1f8dc73dc14
+Author: Владислав Антонов <nnbull2602@gmail.com>
+Date:   Mon Mar 9 13:58:45 2026 +0300
+
+    Добавлены методы управления складом в класс Product
+
+ src/models/product.py | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+commit dbd4f9cac948861c0edb0213fcea82aac241c4a0
+Merge: 27a61eb 26b8ede
+Author: eeeshka <nnbull2602@gmail.com>
+Date:   Mon Mar 9 13:46:14 2026 +0300
+
+    Merge pull request #2 from eeeshka/feature/add-email-validation
+    
+    Добавлена валидация email в класс User
+
+commit 26b8edea436ef78d2d2f0ee3fd1cc754bfb3024e
+Author: Владислав Антонов <nnbull2602@gmail.com>
+Date:   Mon Mar 9 13:35:08 2026 +0300
+
+    Добавлена валидация email в класс User
+
+ src/models/user.py | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+
+commit 27a61ebebdfdc911ded16a487f10c978f2fef41f
+Merge: 501a518 dba72f3
+Author: eeeshka <nnbull2602@gmail.com>
+Date:   Mon Mar 9 12:02:25 2026 +0300
+
+    Merge pull request #1 from eeeshka/feature/add-discount-system
+    
+    Добавлена система скидок в класс Product
+
+commit dba72f3258f73da62477168d229cb33cff4d7d61
+Author: Владислав Антонов <nnbull2602@gmail.com>
+Date:   Mon Mar 9 11:45:47 2026 +0300
+
+    Добавлена система скидок в класс Product
+
+ src/models/product.py | 21 ++++++++++++---------
+ 1 file changed, 12 insertions(+), 9 deletions(-)
+
+commit 501a518e9733c08880ec0878cc73f14f2dfd1d86
+Author: Владислав Антонов <nnbull2602@gmail.com>
+Date:   Mon Mar 9 11:42:17 2026 +0300
+
+    Удалить .idea из репозитория, добавить в .gitignore
+
+ .idea/.gitignore                               |   2 -
+ .idea/SFMShop.iml                              |  12 -
+ .idea/dbnavigator.xml                          | 436 -------------------------
+ .idea/inspectionProfiles/profiles_settings.xml |   6 -
+ .idea/material_theme_project_new.xml           |  12 -
+ .idea/misc.xml                                 |   7 -
+ .idea/modules.xml                              |   8 -
+ .idea/vcs.xml                                  |   6 -
+ .idea/workspace.xml                            |  51 ---
+ 9 files changed, 540 deletions(-)
+
+commit 72dc8337994464ff9386a434d9564cbbb3a88f59
+Author: Владислав Антонов <vladislav@Mac.Dlink>
+Date:   Mon Mar 9 11:37:06 2026 +0300
+
+    Добавлены уроки блока 1: основы Python
+
+ .gitignore                                     |    1 +
+ .idea/.gitignore                               |    2 +
+ .idea/SFMShop.iml                              |   12 +
+ .idea/dbnavigator.xml                          |  436 ++++++++++
+ .idea/inspectionProfiles/profiles_settings.xml |    6 +
+ .idea/material_theme_project_new.xml           |   12 +
+ .idea/misc.xml                                 |    7 +
+ .idea/modules.xml                              |    8 +
+ .idea/vcs.xml                                  |    6 +
+ .idea/workspace.xml                            |   51 ++
+ README.md                                      |    6 +
+ data/orders.txt                                |    4 +
+ data/products.txt                              |    3 +
+ requirements.txt                               |    0
+ src/main.py                                    | 1009 ++++++++++++++++++++++++
+ src/models/__init__.py                         |    0
+ src/models/exceptions.py                       |   27 +
+ src/models/order.py                            |   24 +
+ src/models/payment.py                          |   24 +
+ src/models/product.py                          |   36 +
+ src/models/user.py                             |    7 +
+ src/utils/__init__.py                          |    0
+ src/utils/calculations.py                      |    8 +
+ src/utils/order_processor.py                   |    3 +
+ src/utils/validators.py                        |   11 +
+ 25 files changed, 1703 insertions(+)

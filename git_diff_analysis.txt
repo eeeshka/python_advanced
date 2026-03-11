@@ -1,0 +1,18 @@
+commit 8cd2398f17532c6046d41a34b0f936661f224b10
+Author: Владислав Антонов <nnbull2602@gmail.com>
+Date:   Mon Mar 9 16:07:17 2026 +0300
+
+    Изменен метод get_total_price в main
+
+diff --git a/src/models/product.py b/src/models/product.py
+index 1094a7a..5710210 100644
+--- a/src/models/product.py
++++ b/src/models/product.py
+@@ -10,6 +10,7 @@ class Product:
+         self.quantity = quantity
+ 
+     def get_total_price(self):
++        """Метод расчета стоимости итоговой"""
+         return self.price * self.quantity
+ 
+     def __str__(self):
