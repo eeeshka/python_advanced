@@ -26,3 +26,4 @@ dist/
 # Содержит временные файлы сборки
 build/
 
+.idea/workspace.xml.idea/
