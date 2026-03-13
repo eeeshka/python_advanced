@@ -52,12 +52,63 @@ def get_product_id(conn, product_id):
         else:
             return None
 
+
+def create_user(conn, name, email):
+    """Добавление пользователя в БД"""
+    try:
+        with conn.cursor() as cursor:
+            cursor.execute("INSERT INTO users (name, email) VALUES (%s, %s)",
+                       (name, email))
+            conn.commit()
+        return print(f'Пользователь создан: {name}: {email}')
+    except psycopg2.Error as e:
+        print(f'Ошибка Базы Данных: {e}')
+        return None
+
+def get_user_by_id(conn, user_id):
+    """Получение информации о пользователе по id"""
+    try:
+        with conn.cursor() as cursor:
+            cursor.execute("SELECT name, email FROM users WHERE id = (%s)", (user_id, ))
+            user = cursor.fetchone()
+            if user:
+                keys = ('name', 'email', )
+                return print(f'Пользователь найден: {dict(zip(keys, user))}')
+            return None
+    except psycopg2.Error as e:
+        print(f'Ошибка Базы Данных: {e}')
+        return None
+
+def create_order(conn, user_id, total):
+    """Создание заказа"""
+    try:
+        with conn.cursor() as cursor:
+            cursor.execute("INSERT INTO orders (user_id, total) VALUES (%s, %s)",
+                           (user_id, total))
+            conn.commit()
+            return print(f'Заказ создан: user_id={user_id}, total={total}')
+    except psycopg2.Error as e:
+        print(f'Ошибка БД: {e}')
+        return None
+
+def get_user_orders(conn, user_id):
+    """Получение заказов пользователя"""
+    try:
+        with conn.cursor() as cursor:
+            cursor.execute("SELECT id, user_id, total FROM orders WHERE user_id = %s", (user_id, ))
+            result = cursor.fetchall()
+            if result:
+                return print(result)
+            return None
+    except psycopg2.Error as e:
+        print(f'Ошибка БД: {e}')
+        return None
+
 def main():
-    add_product(connect_to_db(), 'Ноутбук', 50000, 10)
-    add_product(connect_to_db(), 'Мышь', 1500, 20)
-    add_product(connect_to_db(), 'Монитор', 12000, 10)
-    get_all_products(connect_to_db())
-    update_product_price(connect_to_db(), 1, 45000)
+    create_user(connect_to_db(), 'Иван', 'ivan@test.com')
+    get_user_by_id(connect_to_db(), 1)
+    create_order(connect_to_db(), 1, 50000)
+    get_user_orders(connect_to_db(), 1)
 
 
 if __name__ == '__main__':
