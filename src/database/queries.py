@@ -35,18 +35,61 @@ def get_orders_with_products(conn, user_id):
         print(f'Ошибка Базы Данных: {e}')
 
 def get_order_statistics(conn):
-    cursor = conn.cursor()
-    cursor.execute("""
+    """Получает статистику по пользователям (количество заказов, общая сумма)"""
+    try:
+        with conn.cursor() as cursor:
+            cursor.execute("""
         SELECT user_id, COUNT(*) as order_count, SUM(total) as total_sum
         FROM orders
         GROUP BY user_id
         ORDER BY total_sum DESC
     """)
-    results = cursor.fetchall()
-    cursor.close()
-    return results
+            results = cursor.fetchall()
+            cursor.close()
+            return results
+    except psycopg2.Error as e:
+        print(f'Ошибка Базы Данных: {e}')
+
+def get_user_order_history(conn, user_id):
+    """Получает историю заказов пользователя с информацией о товарах"""
+    try:
+        with conn.cursor() as cursor:
+            cursor.execute("""
+            SELECT orders.id,
+            orders.create_at,
+            products.name,
+            order_items.quantity,
+            order_items.price
+            FROM orders
+            INNER JOIN order_items ON orders.id = order_items.order_id
+            INNER JOIN products ON order_items.product_id = products.id
+            WHERE orders.user_id = %s
+            ORDER BY orders.create_at DESC
+            """, user_id)
+            result = cursor.fetchall()
+            cursor.close()
+            return result
+    except psycopg2.Error as e:
+        print(f'Ошибка БД: {e}')
+
+def get_top_products(conn, limit=5):
+    """Получить топ товаров по количеству продаж"""
+    try:
+        with conn.cursor() as cursor:
+            cursor.execute("""
+            SELECT
+            product.name,
+            SUM(            products.name,
+            SUM(order_items.quantity) as total_price)
+            FROM products
+            INNER JOIN order_items ON products.id = order_items.product_id
+            GROUP BY products.id, products.name,
+            ORDER BY total_price DESC
+            LIMIT %s""", limit)
+            result = cursor.fetchall()
+            cursor.close()
+            return result
+    except psycopg2.Error as e:
+        print(f'Ошибка БД: {e}')
 
 
-if __name__ == '__main__':
-    print(get_orders_with_products(connect_to_db(), 2))
-    print(get_order_statistics(connect_to_db()))
