@@ -114,10 +114,13 @@ def get_user_orders(conn, user_id):
         return []
 
 def main():
-    create_user(connect_to_db(), 'Иван', 'ivan@test.com')
-    get_user_by_id(connect_to_db(), 1)
-    create_order(connect_to_db(), 1, 50000)
-    get_user_orders(connect_to_db(), 1)
+    try:
+        create_user(connect_to_db(), 'Иван', 'ivan@test.com')
+        get_user_by_id(connect_to_db(), 1)
+        create_order(connect_to_db(), 1, 50000)
+        get_user_orders(connect_to_db(), 1)
+    finally:
+        connect_to_db().close()
 
 
 if __name__ == '__main__':
