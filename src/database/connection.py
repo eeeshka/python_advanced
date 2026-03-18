@@ -14,43 +14,54 @@ def connect_to_db():
 
 def add_product(conn, name: str, price: int | float, quantity: int):
     """Добавление нового товара в БД"""
-    with conn.cursor() as cursor:
-        cursor.execute("INSERT INTO products (name, price, quantity) VALUES (%s, %s, %s)",
+    try:
+        with conn.cursor() as cursor:
+            cursor.execute("INSERT INTO products (name, price, quantity) VALUES (%s, %s, %s)",
                        (name, price, quantity))
-        conn.commit()
-        return print(f'Добавлен новый товар: {name}: {price}р в кол-ве {quantity}шт')
+            conn.commit()
+            return print(f'Добавлен новый товар: {name}: {price}р в кол-ве {quantity}шт')
+    except psycopg2.Error as e:
+        print(f'Ошибка Базы Данных: {e}')
 
 
 def get_all_products(conn):
     """Получение всех данных с БД"""
-    with conn.cursor() as cursor:
-        cursor.execute('SELECT * FROM products')
-        conn.commit()
-        result = cursor.fetchall()
-        print(f'Все товары:')
-        for product in result:
-            print(product)
+    try:
+        with conn.cursor() as cursor:
+            cursor.execute('SELECT * FROM products')
+            conn.commit()
+            result = cursor.fetchall()
+            print(f'Все товары:')
+            for product in result:
+                print(product)
+    except psycopg2.Error as e:
+        print(f'Ошибка Базы Данных: {e}')
 
 
 def update_product_price(conn, product_id: int, new_price: int | float):
     """Обновление цены """
-    with conn.cursor() as cursor:
-        cursor.execute(""
+    try:
+        with conn.cursor() as cursor:
+            cursor.execute(""
                        "UPDATE products SET price = %s WHERE id = %s",
                        (product_id, new_price))
-        conn.commit()
-        return print(f'Цена обновлена: {new_price}')
-
+            conn.commit()
+            return print(f'Цена обновлена: {new_price}')
+    except psycopg2.Error as e:
+        print(f'Ошибка Базы Данных: {e}')
 
 def get_product_id(conn, product_id):
     """Получение продукта по id"""
-    with conn.cursor() as cursor:
-        cursor.execute("SELECT name, price, quantity FROM products WHERE id = %s", (product_id,))
-        result = cursor.fetchone()
-        if result:
-            return print(f'Name: {result[0]}, price: {result[1]}, quantity: {result[2]}')
-        else:
-            return None
+    try:
+        with conn.cursor() as cursor:
+            cursor.execute("SELECT name, price, quantity FROM products WHERE id = %s", (product_id,))
+            result = cursor.fetchone()
+            if result:
+                return print(f'Name: {result[0]}, price: {result[1]}, quantity: {result[2]}')
+            else:
+                return None
+    except psycopg2.Error as e:
+        print(f'Ошибка Базы Данных: {e}')
 
 
 def create_user(conn, name, email):
