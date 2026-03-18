@@ -60,10 +60,9 @@ def create_user(conn, name, email):
             cursor.execute("INSERT INTO users (name, email) VALUES (%s, %s)",
                        (name, email))
             conn.commit()
-        return print(f'Пользователь создан: {name}: {email}')
+            print(f'Пользователь создан: {name}: {email}')
     except psycopg2.Error as e:
         print(f'Ошибка Базы Данных: {e}')
-        return None
 
 def get_user_by_id(conn, user_id):
     """Получение информации о пользователе по id"""
@@ -73,7 +72,7 @@ def get_user_by_id(conn, user_id):
             user = cursor.fetchone()
             if user:
                 keys = ('name', 'email', )
-                return print(f'Пользователь найден: {dict(zip(keys, user))}')
+                return dict(zip(keys, user))
             return None
     except psycopg2.Error as e:
         print(f'Ошибка Базы Данных: {e}')
@@ -86,10 +85,9 @@ def create_order(conn, user_id, total):
             cursor.execute("INSERT INTO orders (user_id, total) VALUES (%s, %s)",
                            (user_id, total))
             conn.commit()
-            return print(f'Заказ создан: user_id={user_id}, total={total}')
+            print(f'Заказ создан: user_id={user_id}, total={total}')
     except psycopg2.Error as e:
         print(f'Ошибка БД: {e}')
-        return None
 
 def get_user_orders(conn, user_id):
     """Получение заказов пользователя"""
@@ -98,11 +96,11 @@ def get_user_orders(conn, user_id):
             cursor.execute("SELECT id, user_id, total FROM orders WHERE user_id = %s", (user_id, ))
             result = cursor.fetchall()
             if result:
-                return print(result)
+                return result
             return None
     except psycopg2.Error as e:
         print(f'Ошибка БД: {e}')
-        return None
+        return []
 
 def main():
     create_user(connect_to_db(), 'Иван', 'ivan@test.com')
