@@ -77,21 +77,6 @@ def create_user(conn, name, email):
         print(f'Ошибка Базы Данных: {e}')
 
 
-def get_user_by_id(conn, user_id):
-    """Получение информации о пользователе по id"""
-    try:
-        with conn.cursor() as cursor:
-            cursor.execute("SELECT name, email FROM users WHERE id = (%s)", (user_id,))
-            user = cursor.fetchone()
-            if user:
-                keys = ('name', 'email',)
-                return dict(zip(keys, user))
-            return None
-    except psycopg2.Error as e:
-        print(f'Ошибка Базы Данных: {e}')
-        return None
-
-
 def create_order(conn, user_id, total):
     """Создание заказа"""
     try:
@@ -117,13 +102,46 @@ def get_user_orders(conn, user_id):
         print(f'Ошибка БД: {e}')
         return []
 
+def get_user_by_id(conn, user_id):
+    """Возвращение информации о клиенте"""
+    try:
+        with conn.cursor() as cursor:
+            cursor.execute("""SELECT * FROM users
+            WHERE id = %s""", (user_id, ))
+            result = cursor.fetchone()
+            return_dict = {'id': result[0], 'name': result[1], 'email': result[2]}
+            if return_dict:
+                return return_dict
+            return None
+    except psycopg2.Error as e:
+        print(f'Ошибка БД: {e}')
+
+def delete_order(conn, order_id):
+    """Удаление заказа по id"""
+    try:
+        with conn.cursor() as cursor:
+            cursor.execute(
+                "DELETE FROM order_items WHERE order_id = %s",
+                (order_id,)
+            )
+            delete_order = cursor.rowcount
+            cursor.execute(
+                "DELETE FROM orders WHERE id = %s",
+                (order_id,)
+            )
+            delete_string =+ cursor.rowcount
+        conn.commit()
+        return delete_string
+    except psycopg2.Error as e:
+        conn.rollback()
+        print(f'Ошибка БД: {e}')
+        return 0
+
+
 
 def main():
     try:
-        create_user(connect_to_db(), 'Дмитрий', 'ivan@test.com')
-        get_user_by_id(connect_to_db(), 2)
-        create_order(connect_to_db(), 2, 22)
-        get_user_orders(connect_to_db(), 2)
+        print(get_user_by_id(connect_to_db(), 1))
     finally:
         connect_to_db().close()
 
