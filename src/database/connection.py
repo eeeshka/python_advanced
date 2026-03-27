@@ -109,9 +109,11 @@ def get_user_by_id(conn, user_id):
             cursor.execute("""SELECT * FROM users
             WHERE id = %s""", (user_id, ))
             result = cursor.fetchone()
-            return_dict = {'id': result[0], 'name': result[1], 'email': result[2]}
-            if return_dict:
+            if result:
+                return_dict = {'id': result[0], 'name': result[1], 'email': result[2]}
                 return return_dict
+            else:
+                print(f'Пользователь с указанным id{user_id} не найден!')
             return None
     except psycopg2.Error as e:
         print(f'Ошибка БД: {e}')
@@ -120,16 +122,8 @@ def delete_order(conn, order_id):
     """Удаление заказа по id"""
     try:
         with conn.cursor() as cursor:
-            cursor.execute(
-                "DELETE FROM order_items WHERE order_id = %s",
-                (order_id,)
-            )
-            delete_order = cursor.rowcount
-            cursor.execute(
-                "DELETE FROM orders WHERE id = %s",
-                (order_id,)
-            )
-            delete_string =+ cursor.rowcount
+            cursor.execute("DELETE FROM orders WHERE id = %s", (order_id, ))
+            delete_string = cursor.rowcount
         conn.commit()
         return delete_string
     except psycopg2.Error as e:
