@@ -1,0 +1,191 @@
+1)GET /products - список товаров
+- Метод: GET
+- Путь: /products
+- Параментры:
+query parameters: limit=10, offset=5
+- Статусы:
+ 200 OK - Успешно
+ 500 Internal Server Error - Ошибка сервера
+- Запрос:
+ GET /products?limit=10&offset=0 HTTP/1.1
+ Host: sfmshop.com
+
+Привем ответа:
+- 200 OK
+HTTP/1.1 200 OK
+Content-Type: application/json
+[{'id': 1, 'name': 'Холодильник', quantity: 10, 'price': 45000},
+ {'id': 2, 'name': 'Стиральная машина': 'quantity': 15, 'price': 40000}, ...]
+
+2)GET /products/{id} - товар по ID
+- Метод: GET
+- Путь: /products/{id}
+- Параметры: path_parameters = id товара
+- Статусы:
+ 200 OK
+ 400 Bad request
+ 404 Не найден
+ 500 Ошибка сервера
+Запрос:
+GET /products/1 HTTP/1.1
+Host: sfmshop.com
+
+2.1) Успешный ответ:
+HTTP/1.1 200 OK
+Content-Type: application/json
+{'id': 1, 'name': 'Холодильник', quantity: 10, 'price': 45000}
+
+2.2) Обработка ошибки(404)
+HTTP/1.1 404 Not Found
+Content-Type: application/json
+
+{'message': 'Продукт с указанным id не найден', 'error', 404}
+
+3)POST /products - создание товара
+- Метод: POST
+- Путь: /products
+- Тело запроса:
+                name: наименование товара
+                quantity: Количество товара на складе
+                price: цена товара
+- Статусы:
+201 Created
+400 Bad Request
+500 Internal Server Error
+
+- Запрос:
+POST /products HTTP/1.1
+Host: sfmshop.com
+Content-Type: application/json
+{'name': 'Телевизор', 'quantity': 5, 'price': 30000}
+
+- Пример ответа
+3.1 Успешный ответ
+HTTP/1.1 201 Created
+Content-Type: apllication/json
+{'id': 3, 'name': 'Телевизор', 'quantity': 5, 'price': 30000}
+
+3.2 Обработка ошибки 500
+
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json
+
+{"message": "Внутренняя ошибка сервера", 'error': 500}
+
+4)PUT /products/{id} - обновление товара
+- Метод: PUT
+- Путь: /products/{id}
+- Параметры: id - Номер товара для обновления
+- Тело запроса: name - Имя товра
+              quantity - Количество товара
+              price - цена товара
+- Статусы:
+ 200 OK - Если обновили
+ 201 Created - Если до запроса не было информации
+ 400 Bad Request - Данные в теле не корректны
+ 404 Not Found - Указанного id нет
+ 500 Internal Server Error - Ошибка сервера
+
+- Запрос:
+PUT /products/3 HTTP/1.1
+Host: sfmshop.com
+Content-Type: application/json
+{'name': 'Телевизор', 'quantity': 5, 'price': 35000}
+
+- Пример ответа:
+4.1 Успешный
+HTTP/1.1 200 OK
+Content-Type: application/json
+{'id': 3, 'name': 'Телевизор', 'quantity': 5, 'price': 35000}
+
+4.2 Ошибка
+HTTP/1.1 404 Not Found
+{'message': 'Указанного id не существует', 'error': 404}
+
+5)DELETE /products/{id} - удаление товара
+- Метод: DELETE
+- Путь: /products/{id}
+- Параметры: id товара для удаления
+- Статусы:
+ 200 OK
+ 400 Bad Request - Данные в теле не корректны
+ 404 Not Found - Указанного id нет
+ 500 Internal Server Error - Ошибка сервера
+- Запрос:
+DELETE /products/1 HTTP/1.1
+Host: sfmshop.com
+
+- Пример ответа:
+5.1 Успешное удаление
+HTTP/1.1 200 OK
+Content-Type: application/json
+{'message': 'Указанный ID удален', 'status': 200}
+
+5.2 Обработка ошибки
+HTTP/1.1 404 Not Found
+Content-Type: application/json
+{'message': 'Указанный ID не существует', 'error': 404}
+
+6)GET /orders - список заказов
+- Метод: GET
+- Путь: /orders
+- Параметры:
+query parameters: limit=10, offset=5
+- Статусы:
+ 200 OK - Успешно
+ 500 Internal Server Error - Ошибка сервера
+- Запрос:
+ GET /orders?limit=10&offset=0 HTTP/1.1
+ Host: sfmshop.com
+
+Пример ответа:
+- 200 OK
+HTTP/1.1 200 OK
+Content-Type: application/json
+[{'id': 1, 'total_price': 22000, 'create_at': '22-11-2004:14:00', ...}]
+
+7)POST /orders - создание заказа
+- Метод: Post
+- Путь: /orders
+- Тело запроса:
+    user_id - кто создает заказ
+    product_id - что в заказе
+    quantity - количество
+- Статусы:
+ 201 Created
+ 400 Bad Request
+ 500 Internal Server Error
+- Пример запроса:
+POST /orders HTTP/1.1
+Host: sfmshop.com
+Content-Type: application/json
+{"user_id": 1, "product_id": 2, "quantity": 1}
+- Пример ответа:
+ HTTP/1.1 201 Created
+ Content-Type: application/json
+ {"id": 6, "user_id": 22, "product_id": 4, "quantity": 2, "total": 50000}
+
+8)GET /users/{id}/orders - заказы пользователя
+- Метод: GET
+- Путь: /users/{id}/orders
+- Параметры: id - id пользователя
+- Статусы:
+200 OK
+404 Not Found
+500 Internal Server Error
+- Пример закроса:
+GET /users/1/orders HTTP/1.1
+Host: sfmshop.com
+- Пример ответа
+8.1 Успешный
+HTTP 200 OK
+Content-Type: application/json
+[{"id": 1, "total": 50000, "created_at": "2024-01-15"}, ...]
+
+8.2 Ошибка
+HTTP/1.1 404 Not Found
+Content-Type: application/json
+{'message': 'Указанный ID не существует', 'error': 404}
+
+
+
