@@ -1,0 +1,123 @@
+1) Получение списка товаров
+
+Метод: GET
+Путь: /products
+Статус: 200
+Запрос:
+
+GET /products HTTP/1.1
+Host: sfmshop.com
+
+Ответ:
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+[
+  {"id": 1, "name": "Ноутбук", "price": 50000},
+  {"id": 2, "name": "Мышь", "price": 1500}
+]
+
+2)Получение товара по id
+
+Метод: GET
+Путь: /products/1
+Статус: 200/404
+
+Запрос:
+
+GET /products/1 HTTP/1.1
+HOST sfmshop.com
+
+Успешный ответ:
+HTTP/1.1 200 OK
+Content-Type: application/json
+{"id": 1, "name": "Ноутбук", "price": 50000}
+
+Неуспешный ответ:
+HTTP/1.1 404 Not found
+
+Content-Type: application/json
+
+{"error": "Товар с id=1 не найден"}
+
+3)Создание нового заказа
+Метод: POST
+Путь: /orders
+Успешный статус: 201 Created
+Статус Ошибки: 400, 500
+
+Запрос:
+ POST /orders HTTP/1.1
+ HOST sfmshop.com
+ Content-Type: application/json
+ {
+  "user_id": 2,
+  "product_id": 1,
+  "quantity": 2
+}
+
+Ответ:
+HTTP/1.1 201 OK
+Content-Type: application/json
+{"id": 14, "message": 'Заказ успешно создан'
+
+4)Обновление данных товара
+Метод: PUT
+Путь: products/id_товара
+Успешный статус: 200 ОК
+Статус ошикб: 400, 404
+
+Запрос:
+PUT /products/id_товара(1) HTTP/1.1
+HOST sfmshop.com
+Content-Type: application/json
+{"name": "Ноутбук", "price": 99500}
+
+Успешный ответ:
+HTTP/1.1 200
+Content-type: application-json
+{"id": 1 ,"name": "Ноутбук", "price": 99500}
+
+
+5)Удаление товара
+Метод: DELETE
+Путь: /products/id_товара
+Успешный статус: 200
+Статус ошибки: 400, 404, 500
+
+Запрос:
+DELETE /products/1 HTTP/1.1
+HOST sfmshop.com
+
+Успешный ответ:
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{"message": "продукт успешно удален"}
+
+Ответ на ошибку:
+HTTP/1.1 404 Not Found
+Content-Type: application/json
+
+{"message": "Продукт с id=999 не найден"}
+
+
+5)Получение заказов пользователя
+Метод: GET
+Путь: users/id_пользователя/orders
+Успешный статус: 200
+Статус ошибки: 400, 404
+
+Запрос:
+GET /users/1/orders HTTP/1.1
+Host: sfmshop.com
+
+ответ:
+
+HTTP/1.1 200 IK
+Content-Typle: application/json
+
+[{"id": 1, "total_price": 40000, 'create_at': '01.04.2026: 14:00'}, ...}]
+
+
+asd
